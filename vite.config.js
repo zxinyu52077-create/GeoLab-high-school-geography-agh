@@ -22,6 +22,7 @@ function copyDir(src, dest) {
 }
 
 export default defineConfig({
+  base: process.env.GITHUB_PAGES === '1' ? '/GeoLab-high-school-geography-agh/' : '/',
   plugins: [
     react(),
     {
