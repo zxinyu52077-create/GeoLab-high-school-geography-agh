@@ -1,0 +1,69 @@
+.geolab-workbench__launch {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 10px;
+  border: 1px solid rgba(30, 110, 96, .28);
+  border-radius: 16px;
+  color: #173e39;
+  background: rgba(247, 252, 248, .96);
+  box-shadow: 0 12px 32px rgba(25, 72, 64, .16);
+  cursor: pointer;
+}
+.geolab-workbench__launch-mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px; color: #f7fff8; background: #277667; font: 700 11px/1 ui-monospace, monospace; }
+.geolab-workbench__launch span:last-child { display: grid; gap: 3px; text-align: left; }
+.geolab-workbench__launch small { color: #65817a; font-size: 11px; }
+.geolab-workbench { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; }
+.geolab-workbench__backdrop { position: absolute; inset: 0; border: 0; background: rgba(19, 38, 36, .54); cursor: pointer; }
+.geolab-workbench__panel { position: relative; width: min(920px, 100%); max-height: min(850px, 92vh); overflow: auto; border: 1px solid #cfe2d9; border-radius: 22px; background: #f7fbf8; box-shadow: 0 24px 80px rgba(9, 45, 38, .28); }
+.geolab-workbench__header { display: flex; justify-content: space-between; gap: 24px; padding: 26px 30px 22px; color: #f4fff8; background: linear-gradient(115deg, #1b5d55, #2b806a); }
+.geolab-workbench__header h2 { margin: 6px 0; font-size: 26px; }
+.geolab-workbench__header p { margin: 0; color: #d8efe3; font-size: 13px; }
+.geolab-workbench__kicker { color: #b8e7cd; font: 700 10px/1.2 ui-monospace, monospace; letter-spacing: .12em; }
+.geolab-workbench__close { align-self: flex-start; border: 1px solid rgba(255,255,255,.35); border-radius: 9px; padding: 7px 12px; color: #fff; background: transparent; cursor: pointer; }
+.geolab-workbench__body { display: grid; gap: 16px; padding: 24px 30px 30px; }
+.geolab-workbench__question, .geolab-workbench__controls label, .geolab-workbench__intent { display: grid; gap: 7px; color: #2a5148; font-size: 13px; font-weight: 700; }
+.geolab-workbench textarea, .geolab-workbench select { width: 100%; box-sizing: border-box; border: 1px solid #c7ddd2; border-radius: 11px; padding: 11px 12px; color: #193b36; background: #fff; font: inherit; resize: vertical; }
+.geolab-workbench__controls { display: grid; grid-template-columns: minmax(230px, .85fr) minmax(0, 1.15fr); gap: 14px; }
+.geolab-workbench__intent { align-content: start; padding: 12px 14px; border: 1px solid #d4e8dd; border-radius: 12px; background: #edf7f0; }
+.geolab-workbench__intent strong { color: #216c5b; }
+.geolab-workbench__intent small { color: #5e7b71; font-weight: 400; line-height: 1.45; }
+.geolab-workbench__run { border: 0; border-radius: 11px; padding: 12px 16px; color: #fff; background: #267565; font-weight: 700; cursor: pointer; }
+.geolab-workbench__run:disabled { opacity: .6; cursor: wait; }
+.geolab-workbench__error { padding: 11px 13px; border-radius: 10px; color: #8d3427; background: #fff0ed; }
+.geolab-workbench__result { display: grid; gap: 14px; padding-top: 4px; }
+.geolab-workbench__result-head { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+.geolab-workbench__result-head span { color: #6c877d; font-size: 12px; }
+.geolab-workbench__result-head h3 { margin: 5px 0 0; color: #1a4a3f; font-size: 17px; }
+.geolab-workbench__result-head strong { padding: 7px 10px; border-radius: 9px; white-space: nowrap; font: 700 12px ui-monospace, monospace; }
+.geolab-workbench__result-head .is-pass { color: #176b45; background: #dff4e7; }
+.geolab-workbench__result-head .is-warn { color: #99601e; background: #fff1d7; }
+.geolab-workbench__metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.geolab-workbench__metrics span { display: grid; gap: 4px; padding: 10px; border: 1px solid #dfebe4; border-radius: 10px; background: #fff; }
+.geolab-workbench__metrics small { color: #719086; font-size: 11px; }
+.geolab-workbench__metrics b { color: #246b5d; font-size: 15px; }
+.geolab-workbench__table-wrap { overflow-x: auto; border: 1px solid #dceae3; border-radius: 11px; background: #fff; }
+.geolab-workbench table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.geolab-workbench th, .geolab-workbench td { padding: 9px 10px; border-bottom: 1px solid #e8f0eb; text-align: left; white-space: nowrap; }
+.geolab-workbench th { color: #52766a; background: #f1f8f3; }
+.geolab-workbench__checks { display: grid; gap: 7px; }
+.geolab-workbench__checks div { display: grid; grid-template-columns: 48px 1fr; gap: 5px 9px; padding: 8px 10px; border-radius: 9px; background: #edf7f0; }
+.geolab-workbench__checks b { grid-row: span 2; color: #217351; font: 700 10px ui-monospace, monospace; }
+.geolab-workbench__checks span { color: #2d594d; font-size: 12px; font-weight: 700; }
+.geolab-workbench__checks small { color: #6a847a; font-size: 11px; }
+.geolab-workbench__trace { display: grid; gap: 7px; padding: 12px; border-radius: 11px; background: #183c38; }
+.geolab-workbench__trace span { display: grid; grid-template-columns: 140px 220px 1fr; gap: 8px; color: #dcf5e8; font-size: 11px; }
+.geolab-workbench__trace em { color: #aee6c7; font-style: normal; font-family: ui-monospace, monospace; }
+.geolab-workbench__trace small { color: #b9d8c9; }
+.geolab-workbench__footer-note { color: #789187; font-size: 11px; }
+@media (max-width: 680px) {
+  .geolab-workbench__launch { right: 12px; bottom: 12px; }
+  .geolab-workbench { padding: 10px; }
+  .geolab-workbench__header, .geolab-workbench__body { padding-left: 18px; padding-right: 18px; }
+  .geolab-workbench__controls, .geolab-workbench__metrics { grid-template-columns: 1fr 1fr; }
+  .geolab-workbench__trace span { grid-template-columns: 1fr; gap: 2px; }
+}

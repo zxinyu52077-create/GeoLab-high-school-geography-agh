@@ -1,0 +1,11 @@
+{
+  "software": "5.2.2 LTS",
+  "source": "Blender authored terrain, AI generated albedo",
+  "assets": [
+    "tectonic-landscape-v2.glb",
+    "watershed-landscape-v2.glb",
+    "volcano-landscape-v2.glb",
+    "ocean-basin-v2.glb"
+  ],
+  "calibration": "Teaching idealization; no surveyed location or observation calibration"
+}

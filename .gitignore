@@ -1,0 +1,52 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Cesium copied assets
+public/cesium
+
+# Generated embedded learning module
+/public/选修一实验7/
+
+# Preserved local data from the retired desktop backend
+/data/*.db*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Private credentials and AGH local state
+.env
+.env.*
+!.env.example
+.agnes/
+.agh/
+agh-home/
+agh-logs/
+
+# Local AGH checkout and generated contest packages; never publish these.
+tmp/
+submission/
+*.zip
+
+# Contest submission sheets contain private team contact details.
+docs/GeoLab-参赛项目说明书.md
+docs/GeoLab-开发执行方案-v1.md
+docs/本科生组-U357-地理智验队-张馨予-提交材料说明.md

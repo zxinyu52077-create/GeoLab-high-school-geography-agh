@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(135deg, #0c1445 0%, #1a1a2e 50%, #16213e 100%);
+  min-height: 100vh;
+}
+
+.enso-map-frame {
+  height: clamp(320px, 53vh, 390px);
+  transition: height 240ms ease;
+}
+
+.enso-map-frame-zoomed {
+  height: clamp(420px, 72vh, 650px);
+}
+
+@media (max-width: 767px) {
+  .enso-map-frame {
+    height: clamp(280px, 48vh, 360px);
+  }
+
+  .enso-map-frame-zoomed {
+    height: clamp(360px, 64vh, 520px);
+  }
+}
+
+@layer utilities {
+  .text-gradient-elnino {
+    background: linear-gradient(90deg, #ef4444, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-lanina {
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .bg-ocean-gradient {
+    background: linear-gradient(180deg, #0ea5e9 0%, #0284c7 50%, #075985 100%);
+  }
+  
+  .animate-flow {
+    animation: flowAnimation 10s linear infinite;
+  }
+  
+  .animate-temperature {
+    animation: tempPulse 3s ease-in-out infinite;
+  }
+  
+  .glow-warm {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5), 0 0 40px rgba(239, 68, 68, 0.3);
+  }
+  
+  .glow-cool {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+  }
+}
+
+@keyframes flowAnimation {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes tempPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}

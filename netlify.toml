@@ -1,0 +1,9 @@
+[build]
+  command = "npm install --prefix '选修一实验7' && npm run build"
+  publish = "dist"
+
+# SPA 回退：支持 React Router，所有非文件路由返回 index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

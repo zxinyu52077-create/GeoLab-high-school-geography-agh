@@ -1,0 +1,10 @@
+{
+  "client": {
+    "entry": "./index.js",
+    "services": [
+      "geolab.experiment.status"
+    ],
+    "projections": []
+  }
+}
+

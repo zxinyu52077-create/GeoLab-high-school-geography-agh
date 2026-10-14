@@ -1,0 +1,266 @@
+.required-one {
+  --ro-bg: #080e19;
+  --ro-panel: #111a29;
+  --ro-panel-soft: #151f30;
+  --ro-border: rgba(170, 193, 224, .13);
+  --ro-muted: #92a2b9;
+  --ro-text: #edf3fb;
+  --ro-blue: #7bc4ff;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: auto;
+  padding: 0 clamp(20px, 4vw, 64px) 25px;
+  color: var(--ro-text);
+  background: radial-gradient(ellipse at 65% -18%, rgba(51, 111, 175, .18), transparent 42%), var(--ro-bg);
+  font-family: Inter, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.required-one * { box-sizing: border-box; }
+.required-one button { font: inherit; color: inherit; }
+.required-one__topbar { height: 72px; max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-bottom: 1px solid var(--ro-border); }
+.required-one__back { color: #bac7d9; text-decoration: none; font-size: 13px; display: flex; gap: 10px; align-items: center; width: fit-content; }
+.required-one__back:first-letter { color: var(--ro-blue); font-size: 18px; }
+.required-one__identity { text-align: center; }
+.required-one__eyebrow, .required-one__kicker { display: block; color: #7f9cbd; font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.required-one__identity h1 { margin: 4px 0 0; font-size: 19px; letter-spacing: .025em; font-weight: 650; }
+.required-one__top-meta { display: flex; justify-content: flex-end; align-items: center; gap: 9px; color: #aab8ca; font-size: 12px; }
+.required-one__live-dot { width: 7px; height: 7px; border-radius: 50%; background: #6bdbb3; box-shadow: 0 0 14px rgba(107, 219, 179, .65); }
+.required-one__duration { margin-left: 8px; color: #718096; }
+
+.required-one__progress { height: 58px; max-width: 850px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+.required-one__step { position: relative; flex: 1; border: 0; background: none; color: #6e7c90 !important; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 12px; cursor: pointer; }
+.required-one__step:not(:last-child)::after { content: ''; position: absolute; width: calc(100% - 65px); height: 1px; background: #263246; top: 50%; left: calc(50% + 35px); }
+.required-one__step.is-active, .required-one__step.is-complete { color: #eaf3ff !important; }
+.required-one__step-number { z-index: 1; display: grid; place-items: center; width: 25px; height: 25px; border: 1px solid #354257; border-radius: 50%; background: var(--ro-bg); color: #8695aa; font-size: 10px; font-variant-numeric: tabular-nums; }
+.required-one__step.is-active .required-one__step-number { background: #15324e; border-color: #69b9f8; color: #a5d9ff; box-shadow: 0 0 16px rgba(75, 169, 241, .17); }
+.required-one__step.is-complete .required-one__step-number { color: #9ce5c5; border-color: #3e9c7a; background: #123328; }
+
+.required-one__content { max-width: 1500px; min-height: 0; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 294px; gap: 18px; }
+.required-one__workbench, .mission-card, .evidence-card, .thinking-card { border: 1px solid var(--ro-border); border-radius: 15px; background: linear-gradient(155deg, rgba(20, 31, 48, .98), rgba(13, 21, 33, .98)); }
+.required-one__workbench { min-width: 0; padding: 20px clamp(18px, 2.4vw, 34px) 19px; overflow: hidden; }
+.required-one__workbench-head { min-height: 65px; margin-bottom: 15px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.required-one__workbench-head h2 { margin: 7px 0 0; font-size: clamp(19px, 2vw, 25px); line-height: 1.28; font-weight: 620; letter-spacing: -.025em; }
+.required-one__schematic { color: #8595aa; font-size: 10px; border: 1px solid rgba(174, 196, 220, .14); border-radius: 20px; padding: 7px 10px; white-space: nowrap; }
+.required-one__side { display: flex; flex-direction: column; gap: 14px; }
+.mission-card, .evidence-card, .thinking-card { padding: 20px; }
+.mission-card__header { display: flex; align-items: center; gap: 9px; font-size: 11px; color: #9eb0c6; }
+.mission-card__icon { width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; color: #9cd5ff; background: #183654; }
+.mission-card h2 { font-size: 17px; margin: 16px 0 8px; font-weight: 630; }
+.mission-card p, .evidence-card p { color: #a4b1c2; font-size: 12px; line-height: 1.8; margin: 0; }
+.mission-card__checklist { margin-top: 19px; border-top: 1px solid var(--ro-border); padding-top: 14px; display: grid; gap: 12px; color: #728196; font-size: 11px; }
+.mission-card__checklist div { display: flex; gap: 9px; align-items: center; }
+.mission-card__checklist span { display: grid; place-items: center; width: 17px; height: 17px; border: 1px solid #39475a; color: transparent; border-radius: 50%; font-size: 9px; }
+.mission-card__checklist .is-done { color: #b7c6d9; }
+.mission-card__checklist .is-done span { color: #88dfbc; border-color: #4b9f7e; background: #14362b; }
+.evidence-card { background: linear-gradient(150deg, rgba(22, 38, 57, .95), rgba(15, 26, 41, .95)); }
+.evidence-card h3 { font-size: 14px; margin: 10px 0 6px; }
+.evidence-card__source { border-top: 1px solid var(--ro-border); margin-top: 14px; padding-top: 11px; color: #74879e; font-size: 10px; }
+.thinking-card { margin-top: auto; border-color: rgba(89, 159, 218, .19); background: rgba(20, 40, 59, .52); }
+.thinking-card span { color: #90cafa; font-size: 10px; letter-spacing: .1em; }
+.thinking-card p { margin: 9px 0 0; color: #d1deed; font-size: 12px; line-height: 1.7; }
+
+/* Cosmic scale view */
+.cosmos-view { min-height: 420px; display: grid; grid-template-columns: minmax(230px, .9fr) minmax(300px, 1.1fr); gap: clamp(22px, 4vw, 55px); align-items: center; }
+.cosmos-view__visual { position: relative; height: 435px; overflow: hidden; border: 1px solid rgba(146, 174, 207, .16); border-radius: 13px; background: radial-gradient(ellipse at 50% 46%, rgba(27, 59, 91, .56), rgba(7, 14, 25, .42) 72%); display: flex; flex-direction: column; }
+.cosmos-view__visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(1px 1px at 20% 30%, #b5d1ed 55%, transparent 100%), radial-gradient(1px 1px at 81% 22%, #86a5c7 55%, transparent 100%), radial-gradient(1px 1px at 71% 79%, #d9eaff 55%, transparent 100%), radial-gradient(1px 1px at 34% 72%, #819cbc 55%, transparent 100%); opacity: .45; pointer-events: none; }
+.cosmos-scene__toolbar { z-index: 2; height: 38px; flex: 0 0 38px; padding: 8px 12px 0; display: flex; align-items: center; justify-content: space-between; color: #a9bfd4; font-size: 9px; }
+.cosmos-scene__toolbar > span { display: flex; align-items: center; gap: 7px; }
+.cosmos-scene__toolbar i { width: 6px; height: 6px; border-radius: 50%; background: #7ccaff; box-shadow: 0 0 9px #7ccaff; }
+.cosmos-scene__toolbar > div { display: flex; align-items: center; gap: 5px; padding: 2px; border: 1px solid rgba(154, 182, 209, .18); border-radius: 7px; background: rgba(8, 16, 28, .55); }
+.cosmos-scene__toolbar button, .cosmos-scene__actions button { border: 0; border-radius: 4px; color: #b9d7f0 !important; background: rgba(105, 158, 204, .12); cursor: pointer; }
+.cosmos-scene__toolbar button { width: 21px; height: 20px; line-height: 1; font-size: 15px; }
+.cosmos-scene__toolbar button:disabled, .cosmos-scene__actions button:disabled { opacity: .32; cursor: default; }
+.cosmos-scene__toolbar strong { width: 33px; text-align: center; color: #849bb3; font: 9px ui-monospace, Menlo, monospace; }
+.cosmos-view__scene-shell { min-height: 0; flex: 1; animation: cosmos-arrive .55s ease both; }
+.cosmos-scene-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.cosmos-scene-svg text { fill: #a9bfd5; font: 15px "PingFang SC", "Microsoft YaHei", sans-serif; pointer-events: none; }
+.cosmos-scene-svg .cosmos-scene__headline { fill: #e1f1ff; font-size: 20px; font-weight: 650; letter-spacing: .04em; }
+.cosmos-scene-svg .cosmos-scene__subline { fill: #8ca3bb; font-size: 13px; }
+.cosmos-scene-svg .cosmos-scene__tag { fill: #ddc995; font-size: 12px; }
+.cosmos-object { cursor: pointer; transition: filter .2s ease; outline: none; }
+.cosmos-object:hover, .cosmos-object.is-focused, .cosmos-object:focus-visible { filter: drop-shadow(0 0 8px rgba(132, 202, 255, .88)); }
+.cosmos-object:focus-visible { outline: 2px solid #a3dcff; }
+.cosmos-scene__foot { z-index: 2; min-height: 69px; flex: 0 0 auto; padding: 6px 11px 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px solid rgba(158, 185, 212, .1); background: rgba(8, 15, 26, .3); }
+.cosmos-scene__selection { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cosmos-scene__selection span { color: #7490aa; font-size: 8px; letter-spacing: .08em; }
+.cosmos-scene__selection strong { color: #d6e9f9; font-size: 10px; font-weight: 600; }
+.cosmos-scene__selection small { display: -webkit-box; max-width: 220px; overflow: hidden; color: #879ab0; font-size: 8px; line-height: 1.35; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.cosmos-scene__actions { flex: 0 0 auto; display: flex; align-items: center; gap: 4px; }
+.cosmos-scene__actions button { width: 23px; height: 25px; font-size: 15px; }
+.cosmos-scene__actions .cosmos-scene__tour { width: auto; padding: 0 8px; font-size: 8px; white-space: nowrap; }
+.cosmos-scene__actions .cosmos-scene__tour:hover, .cosmos-scene__toolbar button:not(:disabled):hover, .cosmos-scene__actions button:not(:disabled):hover { background: rgba(105, 178, 237, .27); }
+.cosmos-scene__moon { transform-box: view-box; transform-origin: 300px 214px; animation: lunar-track 18s linear infinite; }
+.cosmos-scene__solar-planet { transform-box: view-box; transform-origin: 300px 222px; animation: solar-track var(--orbit-duration, 22s) linear infinite; }
+@keyframes cosmos-arrive { from { opacity: 0; transform: scale(.94); filter: blur(3px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
+@keyframes solar-track { to { transform: rotate(360deg); } }
+@keyframes lunar-track { to { transform: rotate(360deg); } }
+.cosmos-view__level.is-active { box-shadow: inset 3px 0 #6ab7ee; }
+.cosmos-view__levels { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+.cosmos-view__level-list { display: grid; gap: 5px; }
+.cosmos-view__level { padding: 10px 12px; min-height: 42px; display: flex; align-items: center; text-align: left; gap: 11px; cursor: pointer; border: 1px solid transparent; border-radius: 8px; background: transparent; color: #aab8c9 !important; font-size: 12px; transition: .18s ease; }
+.cosmos-view__level:hover { background: rgba(97, 156, 209, .07); }
+.cosmos-view__level.is-active { background: rgba(50, 111, 169, .16); color: #e8f4ff !important; border-color: rgba(100, 176, 238, .28); }
+.cosmos-view__level-index { color: #6f839c; font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; }
+.cosmos-view__chevron { margin-left: auto; color: #86c8ff; }
+.cosmos-view__fact { border-top: 1px solid var(--ro-border); margin-top: 14px; padding: 17px 12px 5px; }
+.cosmos-view__fact h3 { margin: 7px 0 7px; font-size: 17px; }
+.cosmos-view__fact strong { color: #c3d9ef; font-size: 11px; font-weight: 550; }
+.cosmos-view__fact p { color: #93a2b5; margin: 9px 0 0; font-size: 11px; line-height: 1.65; }
+.cosmos-view__prompt { margin: 9px 12px 0; padding: 11px 13px; border-left: 2px solid #528fbe; background: rgba(42, 86, 122, .11); }
+.cosmos-view__prompt span { color: #8ec8f1; font-size: 10px; }
+.cosmos-view__prompt p { color: #a4b4c6; font-size: 10px; line-height: 1.55; margin: 5px 0 0; }
+
+/* Planet comparison */
+.planet-view { position: relative; }
+.planet-view__sunline { display: flex; align-items: center; gap: 11px; color: #f0cb7b; font-size: 12px; padding: 2px 10px 0; }
+.planet-view__sunline div { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(245, 192, 91, .56), rgba(117, 155, 195, .14)); }
+.planet-view__sunline small { color: #8293a8; font-size: 9px; }
+.planet-view__art { height: clamp(170px, 18vw, 215px); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 55%, rgba(34, 71, 112, .22), transparent 70%); }
+.planet-view__art::before { content: ''; height: 1px; background: linear-gradient(90deg, transparent, rgba(126, 169, 209, .16), transparent); position: absolute; left: 4%; right: 4%; top: 54%; }
+.planet-view__art img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 15px 28px rgba(0, 0, 0, .35)); }
+.planet-view__selector { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--ro-border); border-radius: 9px; overflow: hidden; }
+.planet-view__planet { display: flex; align-items: center; gap: 9px; padding: 11px 13px; background: rgba(255,255,255,.015); border: 0; border-right: 1px solid var(--ro-border); cursor: pointer; text-align: left; color: #9daec2 !important; }
+.planet-view__planet:last-child { border-right: 0; }
+.planet-view__planet:hover { background: rgba(83, 156, 218, .08); }
+.planet-view__planet.is-selected { background: rgba(67, 145, 211, .14); box-shadow: inset 0 -2px #75bdf3; color: #f1f7ff !important; }
+.planet-view__planet-order { font: 10px ui-monospace, Menlo, monospace; color: #637891; }
+.planet-view__planet strong { font-size: 12px; font-weight: 600; }
+.planet-view__planet small { margin-left: auto; color: #8294aa; font-size: 10px; font-variant-numeric: tabular-nums; }
+.planet-view__detail { display: grid; grid-template-columns: 1.1fr .7fr .9fr 1.1fr; gap: 13px; padding: 16px 4px 11px; align-items: start; }
+.planet-view__detail h3 { margin: 6px 0 4px; font-size: 21px; }
+.planet-view__detail p { margin: 0; color: #9eacbe; font-size: 10px; line-height: 1.6; }
+.planet-view__stat { min-height: 54px; padding-left: 13px; border-left: 1px solid var(--ro-border); display: flex; flex-direction: column; gap: 8px; }
+.planet-view__stat span { color: #8191a6; font-size: 10px; }
+.planet-view__stat strong { color: #dbe7f5; font-size: 11px; font-weight: 550; line-height: 1.5; }
+.planet-view__insight { display: flex; gap: 13px; padding: 11px 13px; border: 1px solid rgba(101, 166, 218, .14); border-radius: 8px; background: rgba(34, 68, 98, .15); }
+.planet-view__insight span { color: #8ac7f5; font-size: 10px; flex: 0 0 auto; }
+.planet-view__insight p { margin: 0; color: #b2c0d1; font-size: 10px; line-height: 1.55; }
+
+/* Habitability model */
+.habitability-view { display: grid; grid-template-columns: minmax(0, 1fr) minmax(265px, .82fr); gap: 13px; }
+.habitability-view__model, .habitability-view__controls { border: 1px solid var(--ro-border); border-radius: 11px; background: rgba(7, 14, 23, .36); }
+.habitability-view__orbit-scene { height: 300px; position: relative; display: grid; place-items: center; overflow: hidden; }
+.habitability-view__sun { z-index: 2; position: absolute; left: 15%; top: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: #f5d58d; font-size: 22px; text-shadow: 0 0 18px #ffbf4c; background: radial-gradient(circle, rgba(250, 212, 132, .18), transparent 70%); }
+.habitability-view__orbit { position: absolute; left: 15%; top: 50%; transform: translateY(-50%); width: 70%; height: 70%; aspect-ratio: 1; border: 1px dashed rgba(112, 159, 202, .3); border-radius: 50%; transition: transform .15s linear, width .15s linear, height .15s linear; }
+.habitability-view__world { position: absolute; right: -9px; top: 50%; transform: translateY(-50%); width: 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #c8efff, #3189c1 45%, #143c6b 85%); box-shadow: 0 0 21px rgba(83, 179, 247, .7); }
+.habitability-view__world span { position: absolute; top: 31px; white-space: nowrap; color: #aecce6; font-size: 9px; }
+.habitability-view__orbit-label { position: absolute; top: 13px; right: 16px; color: #a9c2dc; font: 11px ui-monospace, Menlo, monospace; }
+.habitability-view__flux { position: absolute; right: 14px; bottom: 16px; display: grid; text-align: right; gap: 2px; }
+.habitability-view__flux span, .habitability-view__flux small { color: #8293a8; font-size: 9px; }
+.habitability-view__flux strong { font-size: 19px; color: #d5eaff; font-weight: 580; font-variant-numeric: tabular-nums; }
+.habitability-view__distance { padding: 0 17px 15px; }
+.habitability-view__distance label { display: flex; justify-content: space-between; color: #9facbf; font-size: 10px; }
+.habitability-view__distance label strong { color: #d9e8f8; font: 11px ui-monospace, Menlo, monospace; }
+.habitability-view__distance input { width: 100%; accent-color: #6dbbfa; margin: 13px 0 4px; }
+.habitability-view__distance div { display: flex; justify-content: space-between; color: #65758b; font-size: 9px; }
+.habitability-view__distance > small { display: block; margin-top: 8px; color: #71839a; font-size: 9px; line-height: 1.45; }
+.habitability-view__controls { padding: 18px 17px 15px; }
+.habitability-view__controls h3 { margin: 7px 0 12px; font-size: 14px; }
+.habitability-view__energy-check { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 7px; padding: 8px 9px; border-radius: 6px; background: rgba(181, 126, 65, .1); color: #cdb28c; font-size: 9px; }
+.habitability-view__energy-check strong { font-size: 9px; font-weight: 600; }
+.habitability-view__energy-check.is-ok { background: rgba(76, 154, 123, .1); color: #a5d5bd; }
+.condition-toggle { min-height: 58px; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid rgba(161, 184, 210, .09); cursor: pointer; }
+.condition-toggle span { display: flex; flex-direction: column; gap: 4px; }
+.condition-toggle strong { font-size: 10px; font-weight: 550; color: #d3deec; }
+.condition-toggle small { max-width: 245px; font-size: 9px; color: #8090a5; line-height: 1.45; }
+.condition-toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.condition-toggle i { flex: 0 0 31px; width: 31px; height: 18px; position: relative; background: #364253; border-radius: 20px; transition: .18s; }
+.condition-toggle i::after { content: ''; position: absolute; width: 12px; height: 12px; left: 3px; top: 3px; border-radius: 50%; background: #a1adbb; transition: .18s; }
+.condition-toggle input:checked + i { background: #1d6591; }
+.condition-toggle input:checked + i::after { transform: translateX(13px); background: #d7f0ff; }
+.condition-toggle input:focus-visible + i { outline: 2px solid #aadfff; outline-offset: 2px; }
+.habitability-view__temperature { margin-top: 6px; padding: 11px 12px; background: rgba(74, 122, 163, .1); border-radius: 7px; }
+.habitability-view__temperature div { display: flex; align-items: center; justify-content: space-between; color: #8ea2b9; font-size: 9px; }
+.habitability-view__temperature strong { font: 17px ui-monospace, Menlo, monospace; color: #cdeaff; }
+.habitability-view__temperature small { display: block; margin-top: 6px; color: #73869d; font-size: 9px; line-height: 1.5; }
+.habitability-view__result { min-height: 70px; grid-column: 1 / -1; display: flex; align-items: center; gap: 13px; border: 1px solid var(--ro-border); border-radius: 9px; padding: 10px 13px; background: rgba(255,255,255,.018); }
+.habitability-view__score { width: 39px; height: 39px; display: flex; align-items: baseline; justify-content: center; padding-top: 8px; border-radius: 9px; background: #17283d; color: #b4dfff; font: 18px ui-monospace, Menlo, monospace; flex: 0 0 auto; }
+.habitability-view__score span { color: #8395aa; font-size: 10px; }
+.habitability-view__result > div:nth-child(2) { flex: 1; }
+.habitability-view__result > div:nth-child(2) > strong { font-size: 11px; font-weight: 580; }
+.habitability-view__result p { margin: 4px 0 0; font-size: 9px; line-height: 1.4; color: #8292a6; }
+.habitability-view__result:not(.is-visible) .habitability-view__score { opacity: .65; }
+
+.required-one__button { min-height: 38px; padding: 0 15px; display: inline-flex; gap: 14px; justify-content: center; align-items: center; color: #07121e !important; background: linear-gradient(135deg, #a7dcff, #66b9f3); border: 0; border-radius: 7px; font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; box-shadow: 0 4px 18px rgba(55, 147, 215, .14); }
+.required-one__button:hover { filter: brightness(1.08); }
+.required-one__button:disabled { cursor: not-allowed; opacity: .4; }
+.required-one__button--ghost { color: #a7b6c9 !important; background: transparent; border: 1px solid var(--ro-border); box-shadow: none; }
+.required-one__footer { max-width: 1500px; margin: 17px auto 0; padding: 14px 0 0; border-top: 1px solid var(--ro-border); display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.required-one__footer-note { display: flex; align-items: center; gap: 12px; color: #7e8fa5; font-size: 10px; }
+.required-one__footer-note strong { color: #aab8ca; font-size: 10px; font-weight: 500; }
+.required-one__footer-actions { display: flex; gap: 9px; }
+
+@media (min-width: 1450px) and (min-height: 880px) {
+  .required-one__content { min-height: 620px; }
+  .required-one__workbench { padding-top: 30px; }
+  .cosmos-view { min-height: 460px; }
+  .cosmos-view__visual { height: 410px; }
+}
+
+@media (min-width: 681px) and (max-height: 800px) {
+  .required-one__topbar { height: 64px; }
+  .required-one__progress { height: 52px; margin-bottom: 10px; }
+  .required-one__content { gap: 14px; }
+  .required-one__workbench { padding: 15px 24px 13px; }
+  .required-one__workbench-head { min-height: 56px; margin-bottom: 10px; }
+  .planet-view__art { height: 170px; }
+  .planet-view__planet { padding-top: 8px; padding-bottom: 8px; }
+  .planet-view__detail { padding-top: 12px; padding-bottom: 8px; }
+  .planet-view__insight { padding-top: 9px; padding-bottom: 9px; }
+  .mission-card, .evidence-card, .thinking-card { padding: 15px; }
+  .mission-card h2 { margin-top: 12px; }
+  .mission-card__checklist { margin-top: 14px; gap: 9px; }
+  .required-one__footer { margin-top: 12px; }
+}
+
+@media (max-width: 1000px) {
+  .required-one { height: auto; min-height: 100vh; overflow: auto; }
+  .required-one__content { grid-template-columns: minmax(0, 1fr); }
+  .required-one__side { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .thinking-card { margin-top: 0; }
+  .mission-card { grid-row: span 2; }
+  .cosmos-view { min-height: 0; }
+}
+
+@media (max-width: 680px) {
+  .required-one { padding: 0 14px 20px; }
+  .required-one__topbar { height: 70px; grid-template-columns: 1fr auto; }
+  .required-one__back span, .required-one__top-meta, .required-one__eyebrow { display: none; }
+  .required-one__identity { text-align: right; }
+  .required-one__identity h1 { font-size: 16px; }
+  .required-one__progress { height: 66px; margin-bottom: 13px; }
+  .required-one__step { gap: 6px; font-size: 10px; }
+  .required-one__step:not(:last-child)::after { width: calc(100% - 48px); left: calc(50% + 24px); }
+  .required-one__step-number { width: 22px; height: 22px; }
+  .required-one__workbench { padding: 18px 14px; }
+  .required-one__workbench-head { display: block; }
+  .required-one__workbench-head h2 { font-size: 19px; }
+  .required-one__schematic { display: inline-block; margin-top: 9px; }
+  .cosmos-view { display: flex; flex-direction: column; align-items: stretch; gap: 13px; }
+  .cosmos-view__visual { height: 330px; }
+  .cosmos-view__orb--universe { width: 85%; }
+  .cosmos-view__orb--local { width: 65%; }
+  .cosmos-view__orb--galaxy { width: 47%; }
+  .cosmos-view__orb--solar { width: 30%; }
+  .cosmos-view__levels { display: grid; gap: 3px; }
+  .cosmos-view__fact { margin-top: 8px; }
+  .planet-view__art { height: 152px; margin: 8px -8px; }
+  .planet-view__selector { grid-template-columns: repeat(2, 1fr); }
+  .planet-view__planet:nth-child(2) { border-right: 0; }
+  .planet-view__planet:nth-child(-n + 2) { border-bottom: 1px solid var(--ro-border); }
+  .planet-view__detail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .planet-view__detail > div:first-child { grid-column: 1 / -1; }
+  .planet-view__stat:nth-child(2) { border-left: 0; padding-left: 0; }
+  .habitability-view { grid-template-columns: 1fr; }
+  .habitability-view__orbit-scene { height: 250px; }
+  .habitability-view__result { grid-column: auto; flex-wrap: wrap; }
+  .habitability-view__result .required-one__button { margin-left: auto; }
+  .required-one__side { display: flex; }
+  .required-one__footer { align-items: flex-start; }
+  .required-one__footer-note { display: none; }
+  .required-one__footer-actions { width: 100%; justify-content: flex-end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .required-one *, .required-one *::before, .required-one *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

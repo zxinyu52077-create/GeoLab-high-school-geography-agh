@@ -1,0 +1,55 @@
+{
+  "project": "GeoLab高中地理可验证仿真实验平台",
+  "recordStatus": "verified-real-agh-service",
+  "recordedAt": "2026-10-14",
+  "runMode": "real-agh-websocket",
+  "resultProvenance": "Agnes via AGH service + GeoLab BFF + original GeoSim deterministic experiment",
+  "aghRuntimeVerification": {
+    "status": "verified",
+    "model": "Agnes",
+    "keyStoredInProject": false,
+    "evidenceFiles": [
+      "docs/GeoLab-elective-07-AGH验证报告.md",
+      "tmp/materials-evidence/agh-real-service-status-elective-07.png",
+      "tmp/materials-evidence/agh-real-service-result-elective-07.png",
+      "tmp/materials-evidence/agh-real-service-trace-elective-07.png"
+    ]
+  },
+  "harness": "AGH plugin contract: plan → geosim_run_original_experiment → evidence.verify",
+  "plugin": "agh-plugin/geolab-tool",
+  "experimentId": "elective-07",
+  "question": "改变信风和入渗条件，比较海气状态与流域水循环。",
+  "parameters": {
+    "wind": 68,
+    "solar": 62,
+    "land": 48,
+    "mode": "neutral"
+  },
+  "result": {
+    "title": "洋流—水循环耦合过程计算",
+    "formula": "P=E+I+R；下垫面改变下渗，信风改变暖水输送方向",
+    "precipitation": "67.8 mm",
+    "evaporation": "30.4 mm",
+    "infiltration": "25.2 mm",
+    "runoff": "12.2 mm",
+    "waterBalance": "67.8 = 30.4 + 25.2 + 12.2",
+    "checksPassed": 4,
+    "checksTotal": 4,
+    "checks": [
+      "耦合变量在边界内",
+      "水量平衡闭合",
+      "信风方向可解释",
+      "结果与原 GeoSim 重算一致"
+    ]
+  },
+  "trace": [
+    {"node": "AGH", "action": "geolab_plan_experiment", "status": "completed"},
+    {"node": "AGH", "action": "geosim_run_original_experiment", "status": "completed"},
+    {"node": "AGH", "action": "geolab_verify_experiment", "status": "completed"},
+    {"node": "GeoLab", "action": "evidence.verify", "status": "completed"}
+  ],
+  "credentialPolicy": {
+    "modelKeyIncluded": false,
+    "privateProfileOnly": true
+  }
+}

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>高考地理·沃克环流 | 厄尔尼诺与拉尼娜交互图解</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none; /* 避免拖动干扰，不影响文字选择 */
+        }
+        body {
+            background: #eef2f5;
+            font-family: 'Segoe UI', 'Roboto', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 24px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* 主卡片容器 */
+        .card {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        /* 头部 */
+        .header {
+            background: linear-gradient(135deg, #1a4d6b 0%, #0f2f44 100%);
+            padding: 1.2rem 2rem;
+            color: white;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.9rem;
+            letter-spacing: -0.3px;
+            font-weight: 700;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .header h1 small {
+            font-size: 0.85rem;
+            font-weight: 400;
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            letter-spacing: 0;
+        }
+        .sub {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        /* 按钮区 */
+        .button-panel {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px 20px 0 20px;
+            background: white;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .mode-btn {
+            border: none;
+            background: #f0f4f8;
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            font-family: inherit;
+            color: #1e293b;
+        }
+        .mode-btn i {
+            margin-right: 6px;
+            font-style: normal;
+            font-weight: 600;
+        }
+        .mode-btn.active {
+            background: #2c6e9e;
+            color: white;
+            box-shadow: 0 6px 12px -8px #1f4e6e;
+            transform: translateY(-1px);
+        }
+        .mode-btn.normal-btn.active { background: #2c6e9e; }
+        .mode-btn.elnino-btn.active { background: #c95a2e; }
+        .mode-btn.lanina-btn.active { background: #2f7d6b; }
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.96);
+        }
+        /* canvas 区域 */
+        .diagram-container {
+            padding: 20px 20px 10px 20px;
+            background: #fefefe;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #fafcfd;
+            border-radius: 28px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e0edf2;
+            margin: 0 auto;
+        }
+        /* 说明 & 高考判读区 */
+        .info-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 16px 24px 28px 24px;
+            background: #ffffff;
+            border-top: 1px solid #e9edf2;
+        }
+        .feature-box {
+            flex: 2;
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-left: 6px solid #2c6e9e;
+        }
+        .feature-box h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0f2f44;
+        }
+        .feature-box p {
+            margin: 8px 0;
+            line-height: 1.45;
+            color: #2c3e44;
+            font-size: 0.95rem;
+        }
+        .tips-box {
+            flex: 1.2;
+            background: #fff6e8;
+            border-radius: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-left: 6px solid #e6a017;
+        }
+        .tips-box h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.2rem;
+            color: #b45f06;
+        }
+        .tips-box ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        .tips-box li {
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+        .badge {
+            background: #1e3a5f;
+            color: white;
+            border-radius: 24px;
+            padding: 2px 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            padding: 12px;
+            color: #7e8a93;
+            border-top: 1px solid #eef2f5;
+            background: white;
+        }
+        @media (max-width: 700px) {
+            .header h1 { font-size: 1.4rem; }
+            .mode-btn { padding: 6px 18px; font-size: 0.9rem; }
+            .feature-box h3 { font-size: 1.1rem; }
+            .info-grid { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>🌊 沃克环流 · ENSO循环 <small>海气相互作用高频考点</small></h1>
+        <div class="sub">
+            <span>⚡ 沃克环流 | 厄尔尼诺 | 拉尼娜</span>
+            <span>📚 高考地理判读核心模型</span>
+        </div>
+    </div>
+
+    <div class="button-panel">
+        <button class="mode-btn normal-btn active" id="btnNormal">🌊 正常年 · 沃克环流</button>
+        <button class="mode-btn elnino-btn" id="btnElNino">🔥 厄尔尼诺年 · El Niño</button>
+        <button class="mode-btn lanina-btn" id="BtnLaNina">❄️ 拉尼娜年 · La Niña</button>
+    </div>
+
+    <div class="diagram-container">
+        <canvas id="walkerCanvas" width="950" height="480" style="width:100%; height:auto; max-width:950px; aspect-ratio:950/480"></canvas>
+    </div>
+
+    <div class="info-grid">
+        <div class="feature-box" id="dynamicDescription">
+            <h3>📌 正常年 · 沃克环流特征</h3>
+            <p>🌬️ <strong>信风强度</strong>：稳定东风（东→西），驱动赤道表层暖水向西堆积。</p>
+            <p>🌊 <strong>暖水区/冷水上涌</strong>：西太平洋暖池深厚，东太平洋秘鲁寒流上涌强烈。</p>
+            <p>⏫ <strong>沃克环流</strong>：西侧上升（对流旺盛）→ 高空东流 → 东侧下沉 → 低层信风闭合。</p>
+            <p>🌍 <strong>气候影响</strong>：印尼/澳大利亚多雨，南美洲西岸干旱，渔场丰饶。</p>
+        </div>
+        <div class="tips-box">
+            <h3>✍️ 高考判读 · 快速技巧</h3>
+            <ul>
+                <li>🔍 <strong>信风强弱</strong>：厄尔尼诺→信风减弱；拉尼娜→信风增强</li>
+                <li>🌊 <strong>暖水位置</strong>：正常偏西；厄尔尼诺东扩；拉尼娜更强西堆</li>
+                <li>📈 <strong>上升区移动</strong>：厄尔尼诺上升区东移，南美洪涝；拉尼娜上升区更强偏西，澳洲多雨</li>
+                <li>🐟 <strong>渔场关联</strong>：厄尔尼诺→冷水上涌减弱→渔业减产</li>
+            </ul>
+        </div>
+    </div>
+    <footer>🏝️ 赤道太平洋剖面示意 | 天空树地理 · 交互式ENSO模型 | 高考高分必备</footer>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('walkerCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 固定尺寸逻辑(高dpi自适应)
+        function setCanvasSize() {
+            const container = canvas.parentElement;
+            const maxWidth = Math.min(950, container.clientWidth);
+            canvas.style.width = `${maxWidth}px`;
+            // 保持比例 950:480
+            canvas.width = 950;
+            canvas.height = 480;
+            draw(currentMode);
+        }
+        window.addEventListener('resize', () => setCanvasSize());
+        
+        // 三种模式
+        const MODE = { NORMAL: 'normal', ELNINO: 'elnino', LANINA: 'lanina' };
+        let currentMode = MODE.NORMAL;
+        
+        // 动态坐标参数 (根据模式变化的上升/下沉区域 X 坐标)
+        // 赤道剖面: 左侧x=150代表东太平洋(南美洲近岸)，右侧x=800代表西太平洋(印尼/澳大利亚)
+        const leftX = 150;      // 东太平洋 (下沉区 / 冷水上涌区)
+        const rightX = 800;     // 西太平洋 (上升区 / 暖池)
+        const oceanY = 280;      // 海平面基线 (用于画暖水层和箭头)
+        
+        // 根据模式获取上升区X位置、下沉区X位置、信风强度系数、暖水扩展系数、上涌强度系数
+        function getModeParams(mode) {
+            if (mode === MODE.NORMAL) {
+                return {
+                    upX: rightX,           // 上升区在西太平洋
+                    downX: leftX,          // 下沉区在东太平洋
+                    tradeWindStrength: 1.0,    // 信风正常强度(箭头粗细/数量)
+                    warmPoolExtent: 0.0,       // 暖水东扩偏移 0=正常堆西
+                    upwellingStrength: 1.0,    // 冷水上涌强度
+                    extraDesc: "🌿 正常年 | 沃克环流完整 | 信风稳定",
+                    warmLayerShift: 0,        // 暖水区东扩偏移像素
+                    upwardIntensity: 1.0,      // 上升气流强度/大小
+                    downIntensity: 1.0,
+                };
+            } else if (mode === MODE.ELNINO) {
+                return {
+                    upX: leftX + 180,        // 上升区东移至中东部太平洋 (靠近南美)
+                    downX: rightX - 120,      // 下沉区西移
+                    tradeWindStrength: 0.35,   // 信风明显减弱
+                    warmPoolExtent: 1.0,       // 暖水向东扩展
+                    upwellingStrength: 0.3,    // 冷水上涌减弱
+                    extraDesc: "🔥 厄尔尼诺年 | 信风减弱 · 暖水东扩 | 沃克环流减弱/东移",
+                    warmLayerShift: 180,       // 暖水区向东扩展180px
+                    upwardIntensity: 0.8,
+                    downIntensity: 0.6,
+                };
+            } else { // 拉尼娜
+                return {
+                    upX: rightX + 20,         // 上升区更偏西，更强
+                    downX: leftX - 10,         // 下沉区更偏东
+                    tradeWindStrength: 1.9,    // 信风增强
+                    warmPoolExtent: -0.5,      // 暖水更堆积西部
+                    upwellingStrength: 1.8,    // 冷水上涌显著增强
+                    extraDesc: "❄️ 拉尼娜年 | 信风增强 · 暖水更强堆积 | 沃克环流异常增强",
+                    warmLayerShift: -40,       // 暖水区间西略微更集中，并增厚
+                    upwardIntensity: 1.4,
+                    downIntensity: 1.4,
+                };
+            }
+        }
+        
+        // 绘图主函数
+        function draw(mode) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const params = getModeParams(mode);
+            
+            // ---------- 1. 背景 + 海洋基底网格 ----------
+            drawBackgroundGrid();
+            
+            // ---------- 2. 暖水区(暖池) & 冷水上涌区 示意 ----------
+            drawWaterRegions(mode, params);
+            
+            // ---------- 3. 信风箭头 (低层东风 东→西) ----------
+            drawTradeWinds(params.tradeWindStrength, mode);
+            
+            // ---------- 4. 上升/下沉气流示意 (垂直对流箭头 + 云团) ----------
+            const upPoint = { x: params.upX, y: oceanY - 18 };
+            const downPoint = { x: params.downX, y: oceanY - 18 };
+            drawConvectionArrows(upPoint, downPoint, params.upwardIntensity, params.downIntensity, mode);
+            
+            // ---------- 5. 沃克环流圈 (大气环流示意: 上升→高空→下沉→低层东风已画) ----------
+            drawWalkerCirculation(upPoint, downPoint, mode, params.tradeWindStrength);
+            
+            // ---------- 6. 冷水上涌垂直箭头 (东太平洋上涌强度) ----------
+            drawUpwellingArrows(params.upwellingStrength, mode);
+            
+            // ---------- 7. 标注陆地区域及赤道、地名等 ----------
+            drawLabelsAndLand(mode);
+            
+            // ---------- 8. 动态更新右侧/左侧文本描述 ----------
+            updateDescriptionBox(mode, params);
+        }
+        
+        // 辅助绘制背景网格/赤道虚线
+        function drawBackgroundGrid() {
+            // 浅色海洋波纹
+            ctx.save();
+            ctx.strokeStyle = "#cbdde6";
+            ctx.lineWidth = 0.6;
+            for (let y = 240; y <= 340; y += 20) {
+                ctx.beginPath();
+                ctx.moveTo(80, y);
+                ctx.lineTo(870, y);
+                ctx.stroke();
+            }
+            // 赤道线 (特殊)
+            ctx.beginPath();
+            ctx.moveTo(70, oceanY);
+            ctx.lineTo(880, oceanY);
+            ctx.strokeStyle = "#ff9f4a";
+            ctx.setLineDash([8, 6]);
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.setLineDash([]);
+            // 赤道标注
+            ctx.font = "500 12px 'Segoe UI'";
+            ctx.fillStyle = "#d4772e";
+            ctx.fillText("赤道 Equator", 40, oceanY-3);
+            
+            // 海水透明层
+            ctx.fillStyle = "#e3f0f5";
+            ctx.fillRect(70, oceanY+2, 810, 48);
+            ctx.fillStyle = "#cfe4ed";
+            ctx.fillRect(70, oceanY+28, 810, 28);
+        }
+        
+        // 暖水区 与 冷水区 (暖池 / 冷舌)
+        function drawWaterRegions(mode, params) {
+            const warmBaseX = 150;
+            const warmBaseY = oceanY + 8;
+            // 根据模式定义暖水区域宽度和高度偏移
+            let warmWidth, warmHeight, coldWidth, coldHeight;
+            if (mode === MODE.NORMAL) {
+                warmWidth = 380;   // 正常集中西太平洋
+                warmHeight = 38;
+                coldWidth = 220;
+                coldHeight = 32;
+            } else if (mode === MODE.ELNINO) {
+                warmWidth = 560;   // 暖水东扩
+                warmHeight = 44;
+                coldWidth = 100;
+                coldHeight = 16;    // 冷水上涌减弱，冷区面积缩小
+            } else {
+                warmWidth = 440;    // 拉尼娜更西堆积且略微增厚
+                warmHeight = 48;
+                coldWidth = 280;
+                coldHeight = 48;    // 冷水上涌增强，冷舌变厚
+            }
+            // 暖水区绘制 (半透明橙红)
+            let warmStartX = (mode === MODE.ELNINO) ? 210 : (mode === MODE.LANINA ? 140 : 170);
+            if (mode === MODE.ELNINO) warmStartX = 190;
+            if (mode === MODE.LANINA) warmStartX = 130;
+            ctx.save();
+            ctx.shadowBlur = 0;
+            ctx.beginPath();
+            ctx.rect(warmStartX, warmBaseY, warmWidth, warmHeight);
+            ctx.fillStyle = "#ffb47b";
+            ctx.globalAlpha = 0.65;
+            ctx.fill();
+            ctx.globalAlpha = 0.9;
+            ctx.fillStyle = "#ff8c42";
+            ctx.beginPath();
+            ctx.rect(warmStartX+10, warmBaseY+6, warmWidth-20, warmHeight-12);
+            ctx.fill();
+            // 暖水区标注
+            ctx.globalAlpha = 1;
+            ctx.font = "bold 11px 'Segoe UI'";
+            ctx.fillStyle = "#b45f1b";
+            ctx.fillText("暖水区 (暖池)", warmStartX+15, warmBaseY+22);
+            
+            // 冷水上涌区（东太平洋冷舌）
+            let coldStartX = mode === MODE.ELNINO ? 140 : 70;
+            if (mode === MODE.ELNINO) coldStartX = 120;
+            if (mode === MODE.LANINA) coldStartX = 70;
+            ctx.beginPath();
+            ctx.rect(coldStartX, warmBaseY+2, mode === MODE.ELNINO ? 110 : (mode === MODE.LANINA ? 200 : 160), mode === MODE.ELNINO ? 18 : (mode === MODE.LANINA ? 40 : 28));
+            ctx.fillStyle = "#6bb5c9";
+            ctx.globalAlpha = 0.7;
+            ctx.fill();
+            ctx.fillStyle = "#3887a3";
+            ctx.globalAlpha = 0.9;
+            ctx.fillText("冷水上涌区", coldStartX+8, warmBaseY+ (mode==='elnino'?16:26));
+            ctx.globalAlpha = 1;
+        }
+        
+        // 信风箭头 (水平东→西) 强度体现粗细/数量
+        function drawTradeWinds(strength, mode) {
+            const yPos = oceanY - 8;
+            const startX = 280;
+            const endX = 750;
+            const step = 68;
+            const arrowCount = Math.max(4, Math.floor(7 * Math.min(1.8, strength)));
+            const lineWidthBase = Math.min(4, 2 * strength);
+            ctx.save();
+            for (let i = 0; i < arrowCount; i++) {
+                let x = startX + i * ( (endX - startX) / arrowCount );
+                if (x > endX) break;
+                ctx.beginPath();
+                ctx.moveTo(x, yPos);
+                ctx.lineTo(x - 32, yPos);
+                ctx.lineWidth = Math.max(1.8, lineWidthBase);
+                ctx.strokeStyle = "#2c6e9e";
+                if (mode === MODE.ELNINO) ctx.strokeStyle = "#a9652e";
+                if (mode === MODE.LANINA) ctx.strokeStyle = "#1f6e5c";
+                ctx.stroke();
+                // 箭头三角
+                ctx.beginPath();
+                ctx.moveTo(x - 32, yPos);
+                ctx.lineTo(x - 40, yPos - 4);
+                ctx.lineTo(x - 40, yPos + 4);
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fill();
+            }
+            // 添加文字标注
+            ctx.font = "italic 12px 'Segoe UI'";
+            ctx.fillStyle = mode === MODE.ELNINO ? "#bd6b38" : (mode === MODE.LANINA ? "#247a64" : "#2a6f8f");
+            ctx.fillText("信风 (东风) →", 650, yPos-6);
+            if (strength < 0.6) ctx.fillText("信风减弱", 620, yPos-16);
+            else if (strength > 1.5) ctx.fillText("信风增强", 620, yPos-16);
+            ctx.restore();
+        }
+        
+        // 上升/下沉箭头
+        function drawConvectionArrows(up, down, upIntensity, downIntensity, mode) {
+            ctx.save();
+            // 上升箭头 (绿色/橙色)
+            ctx.shadowBlur = 0;
+            let upColor = mode === MODE.ELNINO ? "#e68a2e" : "#27ae60";
+            if(mode === MODE.LANINA) upColor = "#2c9c6e";
+            ctx.fillStyle = upColor;
+            ctx.strokeStyle = "#2c5530";
+            ctx.lineWidth = 2;
+            // 上升云团效果
+            for (let i = 0; i < (mode === MODE.LANINA ? 4 : 2); i++) {
+                ctx.beginPath();
+                ctx.arc(up.x - 4 + i*5, up.y - 15 - i*4, 10, 0, Math.PI*2);
+                ctx.fillStyle = mode === MODE.ELNINO ? "#f5bc70" : "#c2e0d0";
+                ctx.globalAlpha = 0.5;
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+            // 上升主箭头
+            for (let i=0; i< Math.floor(upIntensity*1.5); i++) {
+                ctx.beginPath();
+                ctx.moveTo(up.x + i*6 - 8, up.y - 10);
+                ctx.lineTo(up.x + i*6 - 8, up.y - 42);
+                ctx.lineWidth = 2.8;
+                ctx.strokeStyle = upColor;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(up.x + i*6 - 8, up.y - 42);
+                ctx.lineTo(up.x + i*6 - 14, up.y - 33);
+                ctx.lineTo(up.x + i*6 - 2, up.y - 33);
+                ctx.fillStyle = upColor;
+                ctx.fill();
+            }
+            ctx.fillStyle = "#2e5c2e";
+            ctx.font = "bold 12px sans-serif";
+            ctx.fillText("对流上升", up.x-25, up.y-50);
+            
+            // 下沉箭头 (棕色/冷色)
+            let downColor = mode === MODE.ELNINO ? "#b87743" : "#5f7f92";
+            ctx.fillStyle = downColor;
+            for (let i=0; i< Math.floor(downIntensity*1.2); i++) {
+                ctx.beginPath();
+                ctx.moveTo(down.x + i*6 - 8, down.y - 18);
+                ctx.lineTo(down.x + i*6 - 8, down.y + 6);
+                ctx.strokeStyle = downColor;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(down.x + i*6 - 8, down.y + 6);
+                ctx.lineTo(down.x + i*6 - 14, down.y - 2);
+                ctx.lineTo(down.x + i*6 - 2, down.y - 2);
+                ctx.fill();
+            }
+            ctx.fillStyle = "#615e51";
+            ctx.fillText("下沉气流", down.x-25, down.y+12);
+            ctx.restore();
+        }
+        
+        // 沃克环流圈 (高空回流 + 低层闭合示意)
+        function drawWalkerCirculation(up, down, mode, tradeStrength) {
+            ctx.save();
+            ctx.setLineDash([6, 8]);
+            ctx.lineWidth = 2.2;
+            ctx.strokeStyle = mode === MODE.ELNINO ? "#df874b" : (mode === MODE.LANINA ? "#329679" : "#2f7596");
+            ctx.fillStyle = mode === MODE.ELNINO ? "#d97a36" : "#3d829e";
+            // 高空环流 (从上升区顶部到下沉区顶部)
+            ctx.beginPath();
+            let upTop = { x: up.x, y: up.y - 55 };
+            let downTop = { x: down.x, y: down.y - 48 };
+            ctx.moveTo(upTop.x, upTop.y);
+            ctx.quadraticCurveTo((upTop.x+downTop.x)/2 + (mode==='elnino'? -20: 10), upTop.y-18, downTop.x, downTop.y);
+            ctx.stroke();
+            // 加箭头 (高空)
+            let midX = (upTop.x + downTop.x)/2;
+            let midY = upTop.y-15;
+            ctx.beginPath();
+            ctx.moveTo(midX+12, midY-3);
+            ctx.lineTo(midX+20, midY);
+            ctx.lineTo(midX+12, midY+3);
+            ctx.fill();
+            ctx.fillStyle = "#397e6b";
+            ctx.font = "italic 11px 'Segoe UI'";
+            ctx.fillText("高空西风气流", midX, midY-8);
+            // 低层信风已经画过，不再重复，但加一个弧形回流示意
+            ctx.setLineDash([4, 6]);
+            ctx.beginPath();
+            ctx.moveTo(down.x+15, down.y+10);
+            ctx.quadraticCurveTo((down.x+up.x)/2, down.y+28, up.x-18, up.y+8);
+            ctx.strokeStyle = "#c09a6b";
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        // 冷水上涌垂直箭头（东太平洋区域）
+        function drawUpwellingArrows(upwellingStrength, mode) {
+            let startX = 100;
+            let endX = 220;
+            let yBase = oceanY + 28;
+            let count = upwellingStrength > 1.2 ? 4 : (upwellingStrength < 0.5 ? 1 : 2);
+            ctx.save();
+            for (let i = 0; i < count; i++) {
+                let xPos = startX + i * 38;
+                if (mode === MODE.ELNINO) xPos = 130 + i*25;
+                ctx.beginPath();
+                ctx.moveTo(xPos, yBase+8);
+                ctx.lineTo(xPos, yBase-14);
+                ctx.lineWidth = 2.5;
+                ctx.strokeStyle = "#368cba";
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(xPos, yBase-14);
+                ctx.lineTo(xPos-5, yBase-6);
+                ctx.lineTo(xPos+5, yBase-6);
+                ctx.fillStyle = "#368cba";
+                ctx.fill();
+            }
+            ctx.fillStyle = "#22668a";
+            ctx.font = "bold 10px sans-serif";
+            if(upwellingStrength > 1.2) ctx.fillText("冷水上涌增强", 90, yBase+2);
+            else if(upwellingStrength < 0.5) ctx.fillText("冷水上涌减弱", 90, yBase+2);
+            else ctx.fillText("冷水上涌", 110, yBase+2);
+            ctx.restore();
+        }
+        
+        // 标注陆地及地名
+        function drawLabelsAndLand(mode) {
+            ctx.save();
+            ctx.font = "bold 14px 'Segoe UI'";
+            ctx.fillStyle = "#2c4e3c";
+            ctx.fillText("南美洲", 60, oceanY+55);
+            ctx.fillStyle = "#7a4c2c";
+            ctx.fillText("印度尼西亚 / 澳大利亚", 730, oceanY+55);
+            ctx.font = "10px sans-serif";
+            ctx.fillStyle = "#6f7a6e";
+            ctx.fillText("东太平洋", 110, oceanY+75);
+            ctx.fillText("西太平洋", 780, oceanY+75);
+            // 异常模式额外标注
+            if(mode === MODE.ELNINO) {
+                ctx.fillStyle = "#c9622c";
+                ctx.font = "bold 12px";
+                ctx.fillText("↑ 暖水向东扩展 ↑", 380, oceanY-12);
+            } else if(mode === MODE.LANINA) {
+                ctx.fillStyle = "#398a74";
+                ctx.font = "bold 12px";
+                ctx.fillText("暖水更强堆积 + 冷水上涌增强", 400, oceanY-12);
+            } else {
+                ctx.fillStyle = "#316e6e";
+                ctx.fillText("正常沃克环流", 430, oceanY-16);
+            }
+            ctx.restore();
+        }
+        
+        // 更新描述框内容
+        function updateDescriptionBox(mode, params) {
+            const descDiv = document.getElementById('dynamicDescription');
+            if (!descDiv) return;
+            let title = "", line1 = "", line2 = "", line3 = "", line4 = "";
+            if (mode === MODE.NORMAL) {
+                title = "🌊 正常年 · 经典沃克环流";
+                line1 = "🌬️ 信风稳定（东→西），赤道表层暖水堆积西太平洋。";
+                line2 = "🌡️ 东太平洋冷水上涌强烈，形成秘鲁寒流。";
+                line3 = "⏫ 西侧气流上升 → 高空东流 → 东侧下沉，环流完整。";
+                line4 = "🌧️ 气候: 印尼/澳大利亚多雨，南美西岸干燥，渔场丰产。";
+            } else if (mode === MODE.ELNINO) {
+                title = "🔥 厄尔尼诺年 · ENSO暖事件";
+                line1 = "🌬️ 信风减弱甚至逆转，暖水向东太平洋异常扩展。";
+                line2 = "🌊 南美沿岸冷水上涌抑制，渔场减产，暖水区东移。";
+                line3 = "⏬ 沃克环流减弱，上升区东移至中/东太平洋。";
+                line4 = "🌍 影响: 秘鲁洪灾，印尼/澳洲干旱，全球气候异常。";
+            } else {
+                title = "❄️ 拉尼娜年 · ENSO冷事件";
+                line1 = "🌬️ 信风异常增强，暖水更强烈堆积于西太平洋。";
+                line2 = "🌊 东太平洋冷水上涌剧烈增强，赤道中东部异常偏冷。";
+                line3 = "⏫ 沃克环流增强，西太平洋上升气流更强，东太平洋下沉更强。";
+                line4 = "🌎 影响: 澳洲/东南亚洪涝，南美沿岸更干旱，台风活跃。";
+            }
+            descDiv.innerHTML = `<h3>📌 ${title}</h3>
+            <p>🔹 ${line1}</p>
+            <p>🔹 ${line2}</p>
+            <p>🔹 ${line3}</p>
+            <p>🔹 ${line4}</p>
+            <p><span class="badge">高考判读关键</span> 信风${mode === MODE.ELNINO ? '减弱/反向' : (mode === MODE.LANINA ? '增强' : '稳定')} · 暖水${mode === MODE.ELNINO ? '东扩' : (mode === MODE.LANINA ? '西聚增厚' : '西太平洋堆积')}</p>`;
+        }
+        
+        // 按钮绑定与重绘
+        const btnNormal = document.getElementById('btnNormal');
+        const btnElNino = document.getElementById('btnElNino');
+        const btnLaNina = document.getElementById('BtnLaNina');
+        function setActive(activeBtn) {
+            [btnNormal, btnElNino, btnLaNina].forEach(btn => btn.classList.remove('active'));
+            activeBtn.classList.add('active');
+        }
+        btnNormal.addEventListener('click', () => {
+            currentMode = MODE.NORMAL;
+            setActive(btnNormal);
+            draw(currentMode);
+        });
+        btnElNino.addEventListener('click', () => {
+            currentMode = MODE.ELNINO;
+            setActive(btnElNino);
+            draw(currentMode);
+        });
+        btnLaNina.addEventListener('click', () => {
+            currentMode = MODE.LANINA;
+            setActive(btnLaNina);
+            draw(currentMode);
+        });
+        
+        setCanvasSize();
+        draw(MODE.NORMAL);
+    })();
+</script>
+</body>
+</html>

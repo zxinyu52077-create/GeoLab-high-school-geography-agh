@@ -1,0 +1,23 @@
+{
+  "name": "geolab/geolab-tool",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": "./index.mjs",
+  "agnes": {
+    "plugins": [
+      {
+        "export": "geoLabTool",
+        "id": "ext:geolab/geolab-tool",
+        "inject": ["extension"]
+      }
+    ],
+    "clientDescriptors": [
+      {
+        "rowId": "ext:geolab/geolab-tool",
+        "path": "./client/agnes.client.json"
+      }
+    ]
+  }
+}
